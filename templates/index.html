@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV and JD Matching</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="container">
+                <a href="/" class="logo">CV-JD Matcher</a>
+                <ul class="nav-links">
+                    <li><a href="/dashboard">Dashboard</a></li>
+                    <li><a href="/manage">Manage</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container">
+        <h1>Welcome to CV and Job Description Matching</h1>
+        <p>Upload your CVs and Job Descriptions to match and evaluate compatibility!</p>
+
+        <div class="upload-form">
+            <h2>Upload CVs and Job Descriptions</h2>
+            <form action="/upload" method="POST" enctype="multipart/form-data">
+                <div>
+                    <label for="jd-upload">Upload Job Description (JD) File:</label>
+                    <input type="file" name="jd-file" id="jd-upload" required>
+                </div>
+                <div>
+                    <label for="jd-text">Or Input Job Description as Text:</label>
+                    <textarea name="jd-text" id="jd-text" rows="5" placeholder="Enter job description here..."></textarea>
+                </div>
+                <div>
+                    <label for="cv-upload">Upload CVs (multiple files allowed):</label>
+                    <input type="file" name="cv-files" id="cv-upload" multiple required>
+                </div>
+                <button type="submit" class="btn">Upload</button>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 CV-JD Matcher. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage CVs and Job Descriptions</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="container">
+                <a href="/" class="logo">CV-JD Matcher</a>
+                <ul class="nav-links">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/dashboard">Dashboard</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container">
+        <h1>Manage Uploaded CVs and Job Descriptions</h1>
+
+        <div class="file-management">
+            <h2>Uploaded CVs</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>File Name</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="cvTable">
+                    <!-- Dynamic rows will be inserted here via JavaScript -->
+                </tbody>
+            </table>
+        </div>
+
+        <div class="file-management">
+            <h2>Uploaded Job Descriptions</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>File Name</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="jdTable">
+                    <!-- Dynamic rows will be inserted here via JavaScript -->
+                </tbody>
+            </table>
+        </div>
+
+        <div class="upload-form">
+            <h2>Upload New CVs and Job Descriptions</h2>
+            <form action="/upload" method="POST" enctype="multipart/form-data">
+                <div>
+                    <label for="jd-upload">Upload Job Description (JD) File:</label>
+                    <input type="file" name="jd-file" id="jd-upload">
+                </div>
+                <div>
+                    <label for="cv-upload">Upload CV Files:</label>
+                    <input type="file" name="cv-files" id="cv-upload" multiple>
+                </div>
+                <button type="submit" class="btn">Upload</button>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 CV-JD Matcher. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Example data for uploaded CVs and JDs
+        const uploadedCVs = [
+            { fileName: "John_Doe_CV.pdf", id: 1 },
+            { fileName: "Jane_Smith_CV.pdf", id: 2 }
+        ];
+        const uploadedJDs = [
+            { fileName: "Software_Engineer_Job.pdf", id: 1 },
+            { fileName: "Data_Scientist_Job.pdf", id: 2 }
+        ];
+
+        const cvTable = document.getElementById("cvTable");
+        uploadedCVs.forEach(cv => {
+            const row = document.createElement("tr");
+
+            const nameCell = document.createElement("td");
+            nameCell.textContent = cv.fileName;
+            row.appendChild(nameCell);
+
+            const actionsCell = document.createElement("td");
+            const deleteButton = document.createElement("button");
+            deleteButton.textContent = "Delete";
+            deleteButton.className = "btn";
+            deleteButton.onclick = () => alert(`Delete CV: ${cv.fileName}`);
+            actionsCell.appendChild(deleteButton);
+            row.appendChild(actionsCell);
+
+            cvTable.appendChild(row);
+        });
+
+        const jdTable = document.getElementById("jdTable");
+        uploadedJDs.forEach(jd => {
+            const row = document.createElement("tr");
+
+            const nameCell = document.createElement("td");
+            nameCell.textContent = jd.fileName;
+            row.appendChild(nameCell);
+
+            const actionsCell = document.createElement("td");
+            const deleteButton = document.createElement("button");
+            deleteButton.textContent = "Delete";
+            deleteButton.className = "btn";
+            deleteButton.onclick = () => alert(`Delete JD: ${jd.fileName}`);
+            actionsCell.appendChild(deleteButton);
+            row.appendChild(actionsCell);
+
+            jdTable.appendChild(row);
+        });
+    </script>
+</body>
+</html>

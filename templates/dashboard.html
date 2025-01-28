@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - CV and JD Matching</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="container">
+                <a href="/" class="logo">CV-JD Matcher</a>
+                <ul class="nav-links">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/manage">Manage</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container">
+        <h1>Dashboard</h1>
+        <div class="summary-section">
+            <h2>Matching Summary</h2>
+            <p>Here are the results of the CVs compared to the selected Job Description:</p>
+            <div class="stats-container">
+                <canvas id="scoreChart"></canvas>
+            </div>
+        </div>
+
+        <div class="details-section">
+            <h2>CV Matching Details</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>CV Name</th>
+                        <th>Matching Score</th>
+                        <th>View Details</th>
+                    </tr>
+                </thead>
+                <tbody id="cvDetailsTable">
+                    <!-- Dynamic rows will be inserted here via JavaScript -->
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 CV-JD Matcher. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Example data for visualization
+        const matchingResults = [
+            { cvName: "John_Doe_CV.pdf", score: 85 },
+            { cvName: "Jane_Smith_CV.pdf", score: 78 },
+            { cvName: "Mike_Brown_CV.pdf", score: 90 }
+        ];
+
+        // Populate the CV details table
+        const cvDetailsTable = document.getElementById("cvDetailsTable");
+        matchingResults.forEach(result => {
+            const row = document.createElement("tr");
+
+            const nameCell = document.createElement("td");
+            nameCell.textContent = result.cvName;
+            row.appendChild(nameCell);
+
+            const scoreCell = document.createElement("td");
+            scoreCell.textContent = result.score + "%";
+            row.appendChild(scoreCell);
+
+            const detailsCell = document.createElement("td");
+            const viewButton = document.createElement("button");
+            viewButton.textContent = "View Details";
+            viewButton.className = "btn";
+            viewButton.onclick = () => alert(`Details for ${result.cvName}`);
+            detailsCell.appendChild(viewButton);
+            row.appendChild(detailsCell);
+
+            cvDetailsTable.appendChild(row);
+        });
+
+        // Create the chart
+        const ctx = document.getElementById("scoreChart").getContext("2d");
+        const chart = new Chart(ctx, {
+            type: "bar",
+            data: {
+                labels: matchingResults.map(result => result.cvName),
+                datasets: [{
+                    label: "Matching Score (%)",
+                    data: matchingResults.map(result => result.score),
+                    backgroundColor: "rgba(75, 192, 192, 0.6)",
+                    borderColor: "rgba(75, 192, 192, 1)",
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
